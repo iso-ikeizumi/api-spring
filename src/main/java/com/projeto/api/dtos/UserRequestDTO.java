@@ -1,36 +1,36 @@
-package com.projeto.api.entities;
+package com.projeto.api.dtos;
 
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-public class User {
+import com.projeto.api.entities.User;
 
-	@Id @GeneratedValue
+public class UserRequestDTO {
+	
     private Long id;
     private String name;
-    @Column(unique=true)
     private String email;
-    @Column(unique=true)
     private String cpf;
-    @Temporal(TemporalType.DATE)
     private Date birthDate;
 
-    User() {}
+    UserRequestDTO() {}
 
-    public User(String name, String email, String cpf, Date birthDate) {
+    UserRequestDTO(String name, String email, String cpf, Date birthDate) {
       this.name = name;
       this.email = email;
       this.cpf = cpf;
       this.birthDate = birthDate;
     }
 
+    public User getUser() {
+    	return new User(this.getName(), this.getEmail(), this.getCpf(), this.getBirthDate());
+    }
+    
 	public Long getId() {
 		return id;
 	}
@@ -70,4 +70,5 @@ public class User {
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}  
+
 }
