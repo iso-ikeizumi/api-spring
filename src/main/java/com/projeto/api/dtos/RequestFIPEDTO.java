@@ -1,7 +1,6 @@
 package com.projeto.api.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.projeto.api.entities.Veiculo;
 
 public class RequestFIPEDTO {
 	@JsonProperty("Valor")

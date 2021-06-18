@@ -15,7 +15,9 @@ import org.springframework.web.client.RestTemplate;
 import com.projeto.api.dtos.RequestFIPEDTO;
 import com.projeto.api.dtos.VeiculoRequestDTO;
 import com.projeto.api.dtos.VeiculoResponseDTO;
+import com.projeto.api.entities.User;
 import com.projeto.api.entities.Veiculo;
+import com.projeto.api.repositories.UserRepository;
 import com.projeto.api.repositories.VeiculoRepository;
 
 @RestController
@@ -24,6 +26,9 @@ public class VeiculoController {
 	
 	@Autowired
 	private VeiculoRepository veiculoRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	@GetMapping
 	public ResponseEntity<List<VeiculoResponseDTO>> getAllUsers() {
@@ -38,7 +43,8 @@ public class VeiculoController {
 	@PostMapping
 	public ResponseEntity<VeiculoResponseDTO> newVeiculo(@RequestBody VeiculoRequestDTO newVeiculo) {
 		RequestFIPEDTO requestFIPE = this.getVeiculoFIPE(newVeiculo.getMarca(), newVeiculo.getModelo(), newVeiculo.getAno());
-		Veiculo buildVeiculo = new Veiculo(requestFIPE);
+		User user = userRepository.findById(newVeiculo.getUserId()).get();
+		Veiculo buildVeiculo = new Veiculo(requestFIPE, user);
 	    Veiculo veiculo = veiculoRepository.save(buildVeiculo);
 	    return ResponseEntity.ok(new VeiculoResponseDTO(veiculo));
 	}
