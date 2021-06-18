@@ -2,12 +2,6 @@ package com.projeto.api.dtos;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import com.projeto.api.entities.User;
 
 public class UserRequestDTO {
