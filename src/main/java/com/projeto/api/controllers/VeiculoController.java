@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import com.projeto.api.dtos.RequestFIPEDTO;
 import com.projeto.api.dtos.VeiculoRequestDTO;
 import com.projeto.api.dtos.VeiculoResponseDTO;
 import com.projeto.api.entities.Veiculo;
@@ -35,7 +37,19 @@ public class VeiculoController {
 
 	@PostMapping
 	public ResponseEntity<VeiculoResponseDTO> newVeiculo(@RequestBody VeiculoRequestDTO newVeiculo) {
-	    Veiculo veiculo = veiculoRepository.save(newVeiculo.getVeiculo());
+		RequestFIPEDTO requestFIPE = this.getVeiculoFIPE(newVeiculo.getMarca(), newVeiculo.getModelo(), newVeiculo.getAno());
+		Veiculo buildVeiculo = new Veiculo(requestFIPE);
+	    Veiculo veiculo = veiculoRepository.save(buildVeiculo);
 	    return ResponseEntity.ok(new VeiculoResponseDTO(veiculo));
+	}
+	
+	private RequestFIPEDTO getVeiculoFIPE(String marca, String modelo, String anoModelo) {
+
+	     final String uri = "https://parallelum.com.br/fipe/api/v1/carros/marcas/" + marca + "/modelos/ " + modelo + " /anos/" + anoModelo;
+	     RestTemplate restTemplate = new RestTemplate();
+	     RequestFIPEDTO result = restTemplate.getForObject(uri, RequestFIPEDTO.class);     
+	     
+	     return result; 
+
 	}
 }

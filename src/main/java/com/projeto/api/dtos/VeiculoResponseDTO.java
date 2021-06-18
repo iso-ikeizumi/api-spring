@@ -13,7 +13,7 @@ public class VeiculoResponseDTO {
     public VeiculoResponseDTO(Veiculo veiculo) {
       this.marca = veiculo.getMarca();
       this.modelo = veiculo.getModelo();
-      this.ano = veiculo.getAno();
+      this.ano = Integer.toString(veiculo.getAno());
     }
 
 	public String getMarca() {

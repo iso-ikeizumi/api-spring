@@ -16,10 +16,6 @@ public class VeiculoRequestDTO {
       this.modelo = modelo;
       this.ano = ano;
     }
-
-    public Veiculo getVeiculo() {
-    	return new Veiculo(this.getMarca(), this.getModelo(), this.getAno());
-    }
     
 	public Long getId() {
 		return id;
