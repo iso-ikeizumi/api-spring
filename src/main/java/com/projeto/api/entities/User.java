@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class User {
 
@@ -24,6 +26,7 @@ public class User {
     @Temporal(TemporalType.DATE)
     private Date birthDate;
     @OneToMany(mappedBy="user")
+    @JsonManagedReference
 	private Set<Veiculo> veiculos;
 
     User() {}

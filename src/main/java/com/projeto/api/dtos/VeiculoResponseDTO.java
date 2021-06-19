@@ -1,5 +1,7 @@
 package com.projeto.api.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.projeto.api.entities.User;
 import com.projeto.api.entities.Veiculo;
 
 public class VeiculoResponseDTO {
@@ -7,6 +9,8 @@ public class VeiculoResponseDTO {
     private String marca;
     private String modelo;
     private String ano;
+    @JsonIgnoreProperties("veiculos")
+    private User user;
 
     VeiculoResponseDTO() {}
 
@@ -14,6 +18,7 @@ public class VeiculoResponseDTO {
       this.marca = veiculo.getMarca();
       this.modelo = veiculo.getModelo();
       this.ano = Integer.toString(veiculo.getAno());
+      this.user = veiculo.getUser();
     }
 
 	public String getMarca() {
@@ -38,6 +43,14 @@ public class VeiculoResponseDTO {
 
 	public void setAno(String ano) {
 		this.ano = ano;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
