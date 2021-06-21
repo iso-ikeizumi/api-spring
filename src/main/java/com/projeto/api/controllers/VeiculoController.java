@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +47,7 @@ public class VeiculoController {
 		User user = userRepository.findById(newVeiculo.getUserId()).get();
 		Veiculo buildVeiculo = new Veiculo(requestFIPE, user);
 	    Veiculo veiculo = veiculoRepository.save(buildVeiculo);
-	    return ResponseEntity.ok(new VeiculoResponseDTO(veiculo));
+	    return new ResponseEntity<VeiculoResponseDTO>(new VeiculoResponseDTO(veiculo), HttpStatus.CREATED);
 	}
 	
 	private RequestFIPEDTO getVeiculoFIPE(String marca, String modelo, String anoModelo) {
@@ -56,6 +57,5 @@ public class VeiculoController {
 	     RequestFIPEDTO result = restTemplate.getForObject(uri, RequestFIPEDTO.class);     
 	     
 	     return result; 
-
 	}
 }

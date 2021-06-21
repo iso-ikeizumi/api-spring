@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,6 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<UserResponseDTO> newUser(@RequestBody UserRequestDTO newUser) {
 	    User user = userRepository.save(newUser.getUser());
-	    return ResponseEntity.ok(new UserResponseDTO(user));
+	    return new ResponseEntity<UserResponseDTO>(new UserResponseDTO(user), HttpStatus.CREATED);
 	}
 }
